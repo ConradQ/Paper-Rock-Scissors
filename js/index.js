@@ -1,36 +1,41 @@
 'use strict';
 
-var buttonNewGame = document.getElementById('new-game');
+/*var buttonNewGame = document.getElementById('new-game');
 var buttonPaper = document.getElementById('paper');
 var buttonRock = document.getElementById('rock');
 var buttonScissors = document.getElementById('scissors');
 
 var numberOfGames = document.getElementById('games');
-var outputSingleRound = document.getElementById('output');
+var params.output = document.getElementById('output');
 var outputResult = document.getElementById('result');
-var outputEndOfGame = document.getElementById('end-game');
+var outputEndOfGame = document.getElementById('end-game');*/
 
-var stateOfGame = { 
-  playerWins : 0,
-  compWins : 0,
-  gameLength : 0,
-  newGame : function() {
-    outputSingleRound.innerHTML = '';
+var params = { 
+  buttonNewGame: document.getElementById('new-game'),
+  buttonPaper: document.getElementById('paper'),
+  buttonRock: document.getElementById('rock'),
+  buttonScissors: document.getElementById('scissors'), 
+  numberOfGames: document.getElementById('games'),
+  output: document.getElementById('output'),
+  outputResult: document.getElementById('result'),
+  outputEndOfGame: document.getElementById('end-game'),
+  playerWins: 0,
+  compWins: 0,
+  gameLength: 0,
+  newGame: function() {
+    params.output.innerHTML = '';
     scoresResult();
-    outputEndOfGame.innerHTML = '';
+    params.outputEndOfGame.innerHTML = '';
   }
-}
+};
 
-/*var playerWins = 0;
-var compWins = 0;
-var gameLength = 0;*/
 
  // ---------------- Funkcja wyłączająca buttony --------------- \\
 // -------------------------------------------------------------- \\
 function disableButtons(flag) {
-  buttonPaper.disabled = flag;
-  buttonRock.disabled = flag;
-  buttonScissors.disabled = flag;
+  params.buttonPaper.disabled = flag;
+  params.buttonRock.disabled = flag;
+  params.buttonScissors.disabled = flag;
 }
 disableButtons(true);
 
@@ -57,13 +62,13 @@ var numberToText = function(randomNumber) {
 var compare = function(userMove, compChoice) {
   if (userMove === compChoice) {
       return 'REMIS!!! ';
-  } else if ((userMove == 1) && (compChoice == 2) ||
-             (userMove == 2) && (compChoice == 3) ||
-             (userMove == 3) && (compChoice == 1)) {
-      stateOfGame.playerWins++;
+  } else if ((userMove == buttonPlayerMove[0]) && (compChoice == 2) ||
+             (userMove == buttonPlayerMove[1]) && (compChoice == 3) ||
+             (userMove == buttonPlayerMove[2]) && (compChoice == 1)) {
+      params.playerWins++;
       return 'WYGRYWASZ :) ';
   } else {
-      stateOfGame.compWins++;
+      params.compWins++;
       return 'PRZEGRYWASZ :( ';
       }
 };
@@ -71,28 +76,28 @@ var compare = function(userMove, compChoice) {
  // -------- Wyświetlanie wyniku pojedyńczej rozgrywki --------- \\
 // -------------------------------------------------------------- \\
 var scoresResult = function() {
-  outputResult.innerHTML = 'Gracz >>>> <strong>' + stateOfGame.playerWins +  ' vs ' + stateOfGame.compWins + '</strong> <<<< Komputer <br><br>';
+  params.outputResult.innerHTML = 'Gracz >>>> <strong>' + params.playerWins +  ' vs ' + params.compWins + '</strong> <<<< Komputer <br><br>';
 };
 
 
  // ------------ Funkcja resetująca punktację graczy ----------- \\
 // -------------------------------------------------------------- \\
 var resetGame = function() {
-  stateOfGame.playerWins = 0;
-  stateOfGame.compWins = 0;
+  params.playerWins = 0;
+  params.compWins = 0;
 };
 
  // -------------------- Zdarzenie Nowa Gra -------------------- \\
 // -------------------------------------------------------------- \\
-buttonNewGame.addEventListener('click', function() {
-  stateOfGame.newGame();
-  stateOfGame.gameLength = window.prompt('Podaj ilość wygranych rund która zakończy grę!');
-  if (!stateOfGame.gameLength || isNaN(stateOfGame.gameLength)) {
-    numberOfGames.innerHTML = '<br> Podaj właściwą liczbę!' + '<br>';
+params.buttonNewGame.addEventListener('click', function() {
+  params.newGame();
+  params.gameLength = window.prompt('Podaj ilość wygranych rund która zakończy grę!');
+  if (!params.gameLength || isNaN(params.gameLength)) {
+    params.numberOfGames.innerHTML = '<br> Podaj właściwą liczbę!' + '<br>';
     disableButtons(true);
   } else {
-    numberOfGames.innerHTML = '<br> Musisz wygrać: <strong>[ ' + stateOfGame.gameLength + ' ]</strong> razy aby zakończyć grę!!!';
-    buttonNewGame.disabled = true;
+    params.numberOfGames.innerHTML = '<br> Musisz wygrać: <strong>[ ' + params.gameLength + ' ]</strong> razy aby zakończyć grę!!!';
+    params.buttonNewGame.disabled = true;
     disableButtons(false);
   }
 });
@@ -111,7 +116,20 @@ var playerMove = function(userMove) {
 
  // Wywołanie zdarzenia reagujące po kliknięciu w wybrany button \\
 // -------------------------------------------------------------- \\
-buttonPaper.addEventListener('click', function() { 
+var buttonPlayerMove = document.querySelectorAll('.player-move');
+console.log('tablica: ', buttonPlayerMove);
+for (var i = 0; i < buttonPlayerMove.length; i++) {
+  //console.log('i: ', buttonPlayerMove);
+  var btnDataMove = buttonPlayerMove[i].getAttribute('data-move');
+  //console.log('button: ', btnDataMove);
+  buttonPlayerMove[i].addEventListener('click', function() {
+    console.log('btn: ', btnDataMove);
+    //console.log(this);
+    playerMove(btnDataMove);
+    });
+  }
+  
+/*buttonPaper.addEventListener('click', function() { 
   playerMove(1);
 });
 
@@ -121,24 +139,24 @@ buttonRock.addEventListener('click', function() {
 
 buttonScissors.addEventListener('click', function() { 
   playerMove(3);
-});
+});*/
 
 // ---- Funkcja do wyświetlania wyniku dla pojedyńczej rundy --- \\
 // -------------------------------------------------------------- \\
 function resultOutput(compareResult, myText, compText) {
-  outputSingleRound.innerHTML = compareResult + "wybrałeś: " + myText + " komputer wybrał: " + compText + " <br><br>";
+  params.output.innerHTML = compareResult + "wybrałeś: " + myText + " komputer wybrał: " + compText + " <br><br>";
 }
 
 function endOfGame() {
-  if (stateOfGame.gameLength == stateOfGame.playerWins) {
-    buttonNewGame.disabled = false;
+  if (params.gameLength == params.playerWins) {
+    params.buttonNewGame.disabled = false;
     disableButtons(true);
     resetGame();
-    outputEndOfGame.innerHTML = '<strong>WYGRYWASZ</strong> TEN POJEDYNEK!!! <br><br> ABY ZAGRAĆ PONOWNIE WYBIERZ: <strong>NOWA GRA</strong>';
-  } else if (stateOfGame.gameLength == stateOfGame.compWins) {
-    buttonNewGame.disabled = false;
+    params.outputEndOfGame.innerHTML = '<strong>WYGRYWASZ</strong> TEN POJEDYNEK!!! <br><br> ABY ZAGRAĆ PONOWNIE WYBIERZ: <strong>NOWA GRA</strong>';
+  } else if (params.gameLength == params.compWins) {
+    params.buttonNewGame.disabled = false;
     disableButtons(true);
     resetGame();
-    outputEndOfGame.innerHTML = '<strong>PRZEGRYWASZ !!!</strong> KOMPUTER WYGRAŁ TEN POJEDYNEK!!! <br><br> ABY ZAGRAĆ PONOWNIE WYBIERZ: <strong>NOWA GRA</strong>';
+    params.outputEndOfGame.innerHTML = '<strong>PRZEGRYWASZ !!!</strong> KOMPUTER WYGRAŁ TEN POJEDYNEK!!! <br><br> ABY ZAGRAĆ PONOWNIE WYBIERZ: <strong>NOWA GRA</strong>';
   }
 }

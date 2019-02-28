@@ -14,14 +14,14 @@
 
 <body>
 
-  <div class="conteiner">
+  <div class="container">
   <h1>GRA: papier-kamień-nożyce</h1>
   <button id="new-game" class="new">NOWA GRA</button>
   <div id="games"></div>
   <h4>Kliknij w wybrany przez siebie button</h4>
-  <button id="paper"><img src="http://bachmacka.pl/files/Superkoders/papier.PNG"></img></button>
-  <button id="rock"><img src="http://bachmacka.pl/files/Superkoders/kamien.PNG"></img></button>
-  <button id="scissors"><img src="http://bachmacka.pl/files/Superkoders/nozyce.PNG"></img></button>
+  <button class="player-move" id="paper" data-move="paper"><img src="http://bachmacka.pl/files/Superkoders/papier.PNG" alt="papier" /></button>
+  <button class="player-move" id="rock" data-move="rock"><img src="http://bachmacka.pl/files/Superkoders/kamien.PNG" alt="kamień" /></button>
+  <button class="player-move" id="scissors" data-move="scissors"><img src="http://bachmacka.pl/files/Superkoders/nozyce.PNG" alt="nożyce" /></button>
   <div id="output" class="output-style"></div>
   <div id="result"></div>
   <div id="end-game"></div>
@@ -29,7 +29,7 @@
   
   
 
-    <script  src="js/index.js"></script>
+    <script src="js/index.js"></script>
 
 
 
