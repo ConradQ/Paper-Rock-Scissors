@@ -182,7 +182,7 @@ var showModal = function(event){
 
 // Funkcja zamykająca modal, oraz przywiązuję ją do kliknięcia na elemencie z klasą "close". 
 
-var hideModal = function(){
+var hideModal = function(event){
   //event.preventDefault();
   document.querySelector('#modal-overlay').classList.remove('show');
 };
