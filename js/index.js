@@ -151,7 +151,7 @@ function endOfGame() {
 
 function createModal() {
   var modal = document.querySelectorAll('.modal');
-  var newHTML = '<table><thead><tr><th>Rounds | </th><th>Your Move | </th><th>Computer Move | </th><th>Round Result | </th><th><a href="#" class="close">X</a></th></tr></thead><tbody>';
+  var newHTML = '<table><thead><tr><th>Rounds | </th><th>Your Move | </th><th>Computer Move | </th><th>Round Result | </th><th><button class="close">X</button></th></tr></thead><tbody>';
   for (i = 0; i < params.progress.length; i++) {
       newHTML += '<tr><td>' +
           params.progress[i].rounds + '</td><td>' +
@@ -179,22 +179,20 @@ function addRecord() {
 var showModal = function(event){
   // event.preventDefault(); 
   document.querySelector('#modal-overlay').classList.add('show');
+  var closeButton = document.querySelectorAll('.modal .close');
+  console.log('closeButton:', closeButton);
+  for(var i = 0; i < closeButton.length; i++){
+  closeButton.addEventListener('click', hideModal);
 };
 
 // Dodajemy funkcję zamykającą modal, oraz przywiązujemy ją do kliknięć na elemencie z klasą "close". 
 
-var hideModal = function(event){
+var hideModal = function(){
   //event.preventDefault();
   document.querySelector('#modal-overlay').classList.remove('show');
 };
-var closeButton = document.querySelectorAll('.modal .close');
-  console.log('closeButton:', closeButton);
 
-closeButton.addEventListener('click', hideModal);
-
-//for(var i = 0; i < closeButtons.length; i++){
-  
-//}
+}
 //zamykania modala poprzez kliknięcie w overlay. 
 
 //document.querySelector('#modal-overlay').addEventListener('click', hideModal);
