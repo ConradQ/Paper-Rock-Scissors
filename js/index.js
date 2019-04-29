@@ -63,7 +63,7 @@ disableButtons(true);
  // -------------- funkcja która losuje liczb 1-3 -------------- \\
 // -------------------------------------------------------------- \\ // JEST OK - DZIAŁA \\
 var randomMove = function() {
-  var compChoices = ['Paper', 'Rock', 'Scissors'];
+  var compChoices = ['PAPIER', 'KAMIEŃ', 'NOŻYCE'];
   var compMove = Math.floor(Math.random() * 3);
   console.log('compChoice: ', compChoices[compMove]);
   return compChoices[compMove];
@@ -97,9 +97,9 @@ for (var i = 0; i < buttonPlayerMove.length; i++) {
 var compare = function() {
   if (player.choice === computer.choice) {
       return 'REMIS!!! ';
-  } else if ((player.choice === 'Paper') && (computer.choice == 'Rock') ||
-             (player.choice === 'Rock') && (computer.choice == 'Scissors') ||
-             (player.choice === 'Scissors') && (computer.choice == 'Paper')) {
+  } else if ((player.choice === 'PAPIER') && (computer.choice == 'KAMIEŃ') ||
+             (player.choice === 'KAMIEŃ') && (computer.choice == 'NOŻYCE') ||
+             (player.choice === 'NOŻYCE') && (computer.choice == 'PAPIER')) {
       player.score++;
       return 'WYGRYWASZ :) ';
   } else {
